@@ -1,5 +1,11 @@
 package com.nomura.sandeep.chronicle.clrs.chapter10;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * Very interesting concept ...When there are unknown number of children, then this structure is very handy..
  * Structure has :
@@ -12,7 +18,6 @@ package com.nomura.sandeep.chronicle.clrs.chapter10;
  */
 public class LeftChildRightSiblingTree {
     private Node<String> root = null;
-    private int counter = -1;
 
     public static void main(String[] args) {
         LeftChildRightSiblingTree familyTree = new LeftChildRightSiblingTree();
@@ -20,6 +25,10 @@ public class LeftChildRightSiblingTree {
         familyTree.insert("JVSM", familyTree.find("JVVCS", 0), null, new String[]{"JVSK", "JVNM", "JVSS"});
         familyTree.insert("JSR", familyTree.find("JVSM", 1), null, null);
         familyTree.insert("JSV", familyTree.find("JVSK", 1), null, new String[]{"JSB"});
+        familyTree.insert("JSR1", familyTree.find("JSR", 2), null, new String[]{"JSR2"});
+        familyTree.insert("JBS1", familyTree.find("JSB", 2), null, new String[]{"JBS2"});
+        familyTree.insert("ME", familyTree.find("JVSS", 1), null, null);
+        familyTree.insert("ISHA", familyTree.find("ME", 2), null, null);
 
         familyTree.print();
     }
@@ -36,31 +45,44 @@ public class LeftChildRightSiblingTree {
     }
 
     private void print() {
-        if (root != null) {
-            Node<String> tmp = root;
-            print(tmp);
-            do {
-                while (tmp.right != null) {
-                    tmp = tmp.right;
-                    print(tmp);
-                }
-                if (tmp.parent != null && tmp.parent.left != null) {
-                    tmp = tmp.parent.left;
-                }
+        Node<String> tmp = root;
+        print(root);
+        Node<String> myChild = null;
+        Queue<Node<String>> mySiblingsChildren = new LinkedBlockingQueue<>();
+        while (tmp != null) {
+            /** Print all my children first  */
+            if (tmp.left != null) {
+                tmp = tmp.left;
                 if (tmp.left != null) {
-                    tmp = tmp.left;
-                    print(tmp);
+                    myChild = tmp.left;
                 }
-                if (tmp.parent != null && tmp.parent.right != null) {
-                    tmp = tmp.parent.right;
+                print(tmp);
+            }
+            while (tmp.right != null) {
+                tmp = tmp.right;
+                if (tmp.left != null) {
+                    mySiblingsChildren.offer(tmp.left);
                 }
-            } while (tmp.left != null || tmp.right != null);
-
+                print(tmp);
+            }
+            if (myChild != null) {
+                tmp = myChild;
+                print(tmp);
+                myChild = null;
+            } else if (mySiblingsChildren.peek() != null) {
+                tmp = mySiblingsChildren.remove();
+                print(tmp);
+                mySiblingsChildren.remove(tmp);
+            } else {
+                tmp = null;
+            }
         }
+
     }
 
     private void insert(String data, Node<String> parent, String left, String... siblings) {
-        Node<String> node = new Node<>(data, ++counter);
+        int level = parent != null ? parent.nodeLevel + 1 : 0;
+        Node<String> node = new Node<>(data, level);
         if (root == null) {
             root = node;
         } else {
@@ -69,7 +91,7 @@ public class LeftChildRightSiblingTree {
             Node<String> tmp = node;
             if (siblings != null) {
                 for (String sibling : siblings) {
-                    Node<String> sib = new Node<>(sibling, counter);
+                    Node<String> sib = new Node<>(sibling, level);
                     sib.parent = parent;
                     tmp.right = sib;
                     tmp = sib;
@@ -84,38 +106,46 @@ public class LeftChildRightSiblingTree {
             return root;
         }
         Node<String> tmp = root;
-/*
-        do {
-            while (tmp.right != null) {
-                if (check(data, level, tmp)) {
-                    return tmp;
-                }
-                tmp = tmp.right;
-            }
+
+        Node<String> myChild = null;
+        Queue<Node<String>> mySiblingsChild = new LinkedList<>();
+        while (tmp != null) {
+            /** Print all my children first  */
             if (tmp.left != null) {
                 tmp = tmp.left;
+                if (tmp.left != null) {
+                    myChild = tmp.left;
+                }
+                if (check(data, level, tmp)) {
+                    return tmp;
+                }
             }
-        } while (tmp.left != null || tmp.right != null);
-*/
-
-        do {
             while (tmp.right != null) {
                 tmp = tmp.right;
+                if (tmp.left != null) {
+                    mySiblingsChild.add(tmp.left);
+                }
                 if (check(data, level, tmp)) {
                     return tmp;
                 }
             }
-            if (tmp.parent != null && tmp.parent.left != null) {
-                tmp = tmp.parent.left;
-            }
-            if (tmp.left != null) {
-                tmp = tmp.left;
+            if (myChild != null) {
+                tmp = myChild;
                 if (check(data, level, tmp)) {
                     return tmp;
                 }
+                myChild = null;
+            } else if (mySiblingsChild != null && mySiblingsChild.size() > 0) {
+                tmp = mySiblingsChild.remove();
+                if (check(data, level, tmp)) {
+                    return tmp;
+                }
+                //mySiblingsChild = null;
+            } else {
+                tmp = null;
             }
-        } while (tmp.left != null || tmp.right != null);
 
+        }
         return node;
     }
 
