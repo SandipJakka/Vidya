@@ -13,7 +13,6 @@ import java.util.concurrent.LinkedBlockingQueue;
  * x.right ==> sibling of x
  * <p>øø
  * insert ( data, left , {sibling1,sibling2....} )
- * print 
  */
 public class LeftChildRightSiblingTree {
     private Node<String> root = null;
@@ -29,7 +28,16 @@ public class LeftChildRightSiblingTree {
         familyTree.insert("ME", familyTree.find("JVSS", 1), null);
         familyTree.insert("ISHA", familyTree.find("ME", 2), null);
 
+        System.out.println("========= Iterative==================");
         familyTree.print();
+        System.out.println("==========Recursive In Order==================");
+        familyTree.printInOrderRecursive(familyTree.root);
+        System.out.println("==========Recursive Pre Order==================");
+        familyTree.printPreRecursive(familyTree.root);
+        System.out.println("==========Recursive Post Order==================");
+        familyTree.printPostRecursive(familyTree.root);
+        System.out.println("==========Iterative no xtra space==================");
+
     }
 
     /**
@@ -52,6 +60,60 @@ public class LeftChildRightSiblingTree {
     }
 
     /**
+     * In Order traversal
+     *
+     * @param node
+     */
+    private void printInOrderRecursive(Node<String> node) {
+        if (node == null) {
+            return;
+        }
+        if (node.left != null) {
+            printInOrderRecursive(node.left);
+        }
+        print(node);
+        if (node.right != null) {
+            printInOrderRecursive(node.right);
+        }
+    }
+
+    /**
+     * PreOrder traversal
+     *
+     * @param node
+     */
+    private void printPreRecursive(Node<String> node) {
+        if (node == null) {
+            return;
+        }
+        print(node);
+        if (node.left != null) {
+            printPreRecursive(node.left);
+        }
+        if (node.right != null) {
+            printPreRecursive(node.right);
+        }
+    }
+
+    /**
+     * PostOrder traversal.
+     *
+     * @param node
+     */
+    private void printPostRecursive(Node<String> node) {
+        if (node == null) {
+            return;
+        }
+        if (node.left != null) {
+            printPostRecursive(node.left);
+        }
+        if (node.right != null) {
+            printPostRecursive(node.right);
+        }
+        print(node);
+    }
+
+    /**
      * Prints the tree starting from the tree.
      * <p>
      * The main idea is : print all my children ( left first and right ).
@@ -60,6 +122,8 @@ public class LeftChildRightSiblingTree {
      * Print them.
      * When done ( queue is empty ) we are done.
      * </p>
+     * <p>
+     * O(n) complexity -- visting each node only once. We are using a Queue, can use a stack as well...
      */
     private void print() {
         Node<String> tmp = root;
@@ -97,6 +161,7 @@ public class LeftChildRightSiblingTree {
 
     }
 
+
     /**
      * @param data     , the data the needs to be inserted.
      * @param parent   , the parent of the current data
@@ -129,7 +194,7 @@ public class LeftChildRightSiblingTree {
      * @param level
      * @return node if found , else null
      * Same logic as print, instead of printing, we would check and return the value.
-     *
+     * <p>
      * More efficient way would be to cache it when we iterate and check the cache  and then the whole tree.
      */
     private Node<String> find(String data, int level) {
@@ -183,6 +248,7 @@ public class LeftChildRightSiblingTree {
 
     /**
      * Actual node of the tree.
+     *
      * @param <T>
      */
     private static class Node<T> {
