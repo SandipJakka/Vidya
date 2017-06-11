@@ -3,7 +3,7 @@ package com.nomura.sandeep.chronicle.chintan;
 import java.util.Arrays;
 
 /**
- * Given an array A , put all the zeros in the left ...
+ * Given an array A , put all the zeros in the right ...
  */
 public class ZerosOneSide {
 
