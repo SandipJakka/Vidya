@@ -55,6 +55,11 @@ public class ZerosOneSide {
         A = new int[]{0, 1, 2, 0, 6, 9};
         A = moveZerosToRight(A);
         print(A);
+
+        A = new int[]{7, 1, 2, 8, 6, 9};
+        A = moveZerosToRight(A);
+        print(A);
+
     }
 
     public static void print(int[] A) {
