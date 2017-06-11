@@ -43,6 +43,8 @@ public class ZerosOneSide {
         A = moveZerosToRight(A);
         print(A);
 
+        
+
         A = new int[]{0, 0, 0, 0, 0};
         A = moveZerosToRight(A);
         print(A);
