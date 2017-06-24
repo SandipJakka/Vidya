@@ -56,7 +56,7 @@ public class MorrisTreeTraversal {
         }
     }
 
-    private void visit(Node current) {
+    private static void visit(Node current) {
         System.out.print(current.data);
         System.out.print(",");
     }

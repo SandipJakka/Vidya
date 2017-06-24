@@ -223,20 +223,4 @@ public class TreePrintKeysRecursive {
     }
 
 
-    private static final class Node<T> {
-        private final T data;
-        private Node<T> left;
-        private Node<T> right;
-
-        private Node(T data, Node<T> left, Node<T> right) {
-            this.data = data;
-            this.left = left;
-            this.right = right;
-        }
-
-        @Override
-        public String toString() {
-            return "" + data;
-        }
-    }
 }
