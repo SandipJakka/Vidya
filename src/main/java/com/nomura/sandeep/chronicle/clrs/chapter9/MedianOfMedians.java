@@ -132,11 +132,11 @@ public class MedianOfMedians {
 
     public static void main(String[] args) {
 //        int[] A = new int[]{6, 4, 9, 3, 21, 5, 7, 45, 0, 99, -1, 2};
-        int[] A = new int[]{6, 4, 9, 3, 21, 41, 99, 2, 0, -1,51};
+        int[] A = new int[]{6, 4, 9, 3, 21, 41, 99, 2, 0, -1, 51};
 
 //        System.out.println("----" + pivot(A, 0, A.length - 1));
         System.out.println("----" + A[medOfMedians(A, 0, A.length - 1)]);
-        System.out.println("----" + selectBetter(A, 0, A.length - 1,6));
+        System.out.println("----" + selectBetter(A, 0, A.length - 1, 6));
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * x.left ==> left child of x
  * x.right ==> sibling of x
  * <p>øø
- * insert ( data, left , {sibling1,sibling2....} )
+ * insertBST ( data, left , {sibling1,sibling2....} )
  */
 public class LeftChildRightSiblingTree {
     private Node<String> root = null;

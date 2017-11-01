@@ -7,8 +7,8 @@ public class OddPair {
 
     public static void main(String[] args) {
         OddPair op = new OddPair();
-        int[] A = new int[]{ 9,3, 9,7, 9, 7,9};
-        System.out.println("===>"+ op.solution(A));
+        int[] A = new int[]{9, 3, 9, 7, 9, 7, 9};
+        System.out.println("===>" + op.solution(A));
     }
 
     public int solution(int[] A) {

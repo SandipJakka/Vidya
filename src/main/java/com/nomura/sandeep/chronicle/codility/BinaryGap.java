@@ -23,11 +23,11 @@ public class BinaryGap {
                     result = Integer.max(result, count);
                     count = 0;
                     shouldCount = true;
-                    } else {
-                        if (shouldCount) {
-                            count++;
-                        }
+                } else {
+                    if (shouldCount) {
+                        count++;
                     }
+                }
 
                 input = input >> 1;
             }

@@ -49,10 +49,10 @@ public class TreeHeight {
             }
         }*/
 
-        if (root == null || (root.left==null && root.right==null)){
+        if (root == null || (root.left == null && root.right == null)) {
             return 0;
-        }else{
-            return 1+ Math.max(getHeight(root.left), getHeight(root.right));
+        } else {
+            return 1 + Math.max(getHeight(root.left), getHeight(root.right));
         }
 
     }

@@ -19,7 +19,7 @@ public class MinimalPositiveNumber {
     public int solution(int[] A) {
         int max = 0;
 
-        List<Boolean> list = new ArrayList<>(Arrays.asList(new Boolean[A.length+1]));
+        List<Boolean> list = new ArrayList<>(Arrays.asList(new Boolean[A.length + 1]));
         Collections.fill(list, Boolean.FALSE);
 
         if (A.length == 0 || A.length > Integer.MAX_VALUE) {

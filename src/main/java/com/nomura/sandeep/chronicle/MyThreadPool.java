@@ -21,57 +21,6 @@ public class MyThreadPool {
         }
     }
 
-
-    public synchronized void submit(Runnable t) throws InterruptedException {
-        if (isPoolStopped) {
-            throw new IllegalStateException("Pool already is stopped..");
-        }
-        tasksHolder.enqueue(t);
-    }
-
-    public synchronized void stopPool() {
-        if (!isPoolStopped) {
-            System.out.println("Shutting down pool ");
-            for (WorkerThread th : threadPool) {
-                th.stopTask();
-            }
-            isPoolStopped = true;
-        } else {
-            System.out.println("Already stopped .....");
-        }
-    }
-
-
-    class WorkerThread extends Thread {
-
-        private boolean isTaskStopped = false;
-        private final MyBlockingQ<Runnable> tasksHolder;
-
-        WorkerThread(MyBlockingQ<Runnable> tasksHolder) {
-            this.tasksHolder = tasksHolder;
-        }
-
-        @Override
-        public void run() {
-            while (!isTaskStopped) {
-                try {
-                    Runnable r = tasksHolder.dequeue(); /** blocking call.. */
-                    r.run();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        public synchronized void stopTask() {
-            System.out.println("Shutting down individual threads...");
-            isTaskStopped = true;
-            this.interrupt();
-        }
-
-    }
-
-
     public static void main(String[] args) {
         MyThreadPool pool = new MyThreadPool(5, 3);
 
@@ -122,6 +71,54 @@ public class MyThreadPool {
             pool.stopPool();
         }
 
+
+    }
+
+    public synchronized void submit(Runnable t) throws InterruptedException {
+        if (isPoolStopped) {
+            throw new IllegalStateException("Pool already is stopped..");
+        }
+        tasksHolder.enqueue(t);
+    }
+
+    public synchronized void stopPool() {
+        if (!isPoolStopped) {
+            System.out.println("Shutting down pool ");
+            for (WorkerThread th : threadPool) {
+                th.stopTask();
+            }
+            isPoolStopped = true;
+        } else {
+            System.out.println("Already stopped .....");
+        }
+    }
+
+    class WorkerThread extends Thread {
+
+        private final MyBlockingQ<Runnable> tasksHolder;
+        private boolean isTaskStopped = false;
+
+        WorkerThread(MyBlockingQ<Runnable> tasksHolder) {
+            this.tasksHolder = tasksHolder;
+        }
+
+        @Override
+        public void run() {
+            while (!isTaskStopped) {
+                try {
+                    Runnable r = tasksHolder.dequeue(); /** blocking call.. */
+                    r.run();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public synchronized void stopTask() {
+            System.out.println("Shutting down individual threads...");
+            isTaskStopped = true;
+            this.interrupt();
+        }
 
     }
 }

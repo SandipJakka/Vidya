@@ -85,7 +85,7 @@ public class Deque {
             if ((frontQSize + 1) < frontQLen) {
                 fTail = 0;
             } else {
-                throw new RuntimeException("Array full : can't insert");
+                throw new RuntimeException("Array full : can't insertBST");
             }
         }
         frontQSize++;
@@ -115,7 +115,7 @@ public class Deque {
             if ((backQSize + 1) < backQLen) {
                 bTail = array.length - 1;
             } else {
-                throw new RuntimeException("Array full : can't insert");
+                throw new RuntimeException("Array full : can't insertBST");
             }
         }
         backQSize++;

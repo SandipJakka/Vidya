@@ -21,22 +21,22 @@ public class MaxProductOfThree {
     }
 
 
-        public int solution(int[] A) {
-            int max = 0;
-            if (A.length == 2) {
-                return A[0] * A[1];
-            } else if (A.length == 1) {
-                return A[0];
-            } else {
+    public int solution(int[] A) {
+        int max = 0;
+        if (A.length == 2) {
+            return A[0] * A[1];
+        } else if (A.length == 1) {
+            return A[0];
+        } else {
 
-                Arrays.parallelSort(A);
-                int sz = A.length;
-                int start = A[0] * A[1] * A[sz - 1];
-                int end = A[sz - 1] * A[sz - 2] * A[sz - 3];
-                max = start > end ? start : end;
-            }
-            return max;
+            Arrays.parallelSort(A);
+            int sz = A.length;
+            int start = A[0] * A[1] * A[sz - 1];
+            int end = A[sz - 1] * A[sz - 2] * A[sz - 3];
+            max = start > end ? start : end;
         }
+        return max;
+    }
 
 
     private boolean withInRange(int index, int[] A) {

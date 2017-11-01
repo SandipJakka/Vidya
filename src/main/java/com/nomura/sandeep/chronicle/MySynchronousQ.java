@@ -9,30 +9,6 @@ public class MySynchronousQ<T> {
     private Thread writer;
     private T ret;
 
-    public synchronized void enqueue(T obj) throws InterruptedException {
-        writer = Thread.currentThread();
-        while (reader == null || writer != Thread.currentThread()) {
-            System.out.println("obj = [" + obj + "]");
-            wait();
-        }
-        ret = obj;
-        notifyAll();
-    }
-
-    public synchronized T dequeue() throws InterruptedException {
-        reader = Thread.currentThread();
-        notifyAll();
-        while (ret == null) {
-            System.out.println("dequeue...");
-            wait();
-        }
-        T obj = ret;
-        ret = null;
-        writer = null;
-        reader = null;
-        return obj;
-    }
-
     public static void main(String[] args) {
         MySynchronousQ<String> q = new MySynchronousQ<>();
 
@@ -88,5 +64,29 @@ public class MySynchronousQ<T> {
         }
         sender2.start();
         rec2.start();
+    }
+
+    public synchronized void enqueue(T obj) throws InterruptedException {
+        writer = Thread.currentThread();
+        while (reader == null || writer != Thread.currentThread()) {
+            System.out.println("obj = [" + obj + "]");
+            wait();
+        }
+        ret = obj;
+        notifyAll();
+    }
+
+    public synchronized T dequeue() throws InterruptedException {
+        reader = Thread.currentThread();
+        notifyAll();
+        while (ret == null) {
+            System.out.println("dequeue...");
+            wait();
+        }
+        T obj = ret;
+        ret = null;
+        writer = null;
+        reader = null;
+        return obj;
     }
 }

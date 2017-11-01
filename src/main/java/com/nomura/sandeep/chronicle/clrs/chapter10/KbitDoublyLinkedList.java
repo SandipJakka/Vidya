@@ -14,8 +14,8 @@ import java.lang.reflect.Field;
  * Memory efficient Doubly linked list :
  * <p>
  * http://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-1/
- *
- *
+ * <p>
+ * <p>
  * CAN NOT BE IMPLEMENTED IN JAVA....
  */
 public class KbitDoublyLinkedList {

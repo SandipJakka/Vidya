@@ -96,6 +96,11 @@ public class SundryTreeFunctions {
 
         Node root = ctf.createTree(inorder, preorder);
         System.out.println("Largest : " + t.largest(root));
+
+        System.out.println("Are cousins : " + t.areCousins(t.root1, t.find(10, t.root1), t.find(35, t.root1)));
+        System.out.println("Are cousins : " + t.areCousins(t.root1, t.find(9, t.root1), t.find(20, t.root1)));
+        System.out.println("Are cousins : " + t.areCousins(t.root1, t.find(35, t.root1), t.find(20, t.root1)));
+        System.out.println("Are cousins : " + t.areCousins(t.root1, t.find(1000, t.root1), t.find(20, t.root1)));
     }
 
 
@@ -108,28 +113,85 @@ public class SundryTreeFunctions {
 
 
     /**
-     * Given a Binary Tree , determine the size of the largest BST it contains. Should return the size ( number of nodes )
-     * in the largest BST in the binary tree.
-     * <p>
+     * At same levels, but differnt parents are considered cousins.
      * <p>
      * Solution :
+     * O(n) : we have visited all nodes only once.
+     * And also only 1 traversal.
      * <p>
-     * Start from the leaf node and keep going up the tree..
-     * //@formatter:off
-     * 1. Leaf nodes are all BST.
-     * 2. Pass these 4 variables ( isBst, min, max , count )
-     * 3. Check if each node is within the range ... else not an BST.
-     * count --> max of left and right side + 1.
-     * <p>
-     * <p>
-     * <p>
-     * //@formatter:on
-     * <p>
-     * Testing formatting
+     * Do a level order traversal... with 2 queues.  Keep traversing
+     * and keep track of parent and levels .
+     * and compare them once after we find them.
      *
      * @param root
+     * @param a
+     * @param b
      * @return
      */
+    public boolean areCousins(Node root, Node a, Node b) {
+        if (root == null || a == null || b == null) {
+            return false;
+        }
+        if (root.equals(a) || root.equals(b)) {
+            return false;
+        }
+
+        Queue<NodeParent> queue1 = new LinkedBlockingQueue<>();
+        Queue<NodeParent> queue2 = new LinkedBlockingQueue<>();
+
+        queue1.offer(new NodeParent(root, null, -1));
+        int level = 0;
+        NodeParent nodeA = null;
+        NodeParent nodeB = null;
+        boolean addQ1 = false;
+        Queue<NodeParent> tmpQ = null;
+        boolean found = false;
+        while ((!found) && (!queue1.isEmpty() || !queue2.isEmpty())) {
+            if (queue1.isEmpty()) {
+                tmpQ = queue2;
+                addQ1 = true;
+                ++level;
+            } else if (queue2.isEmpty()) {
+                tmpQ = queue1;
+                addQ1 = false;
+                ++level;
+            }
+            while (!tmpQ.isEmpty()) {
+                NodeParent tmpPair = tmpQ.poll();
+                Node tmp = tmpPair.node;
+                if (tmp.left != null) {
+                    if (addQ1) {
+                        queue1.add(new NodeParent(tmp.left, tmp, level));
+                    } else {
+                        queue2.add(new NodeParent(tmp.left, tmp, level));
+                    }
+                }
+                if (tmp.right != null) {
+                    if (addQ1) {
+                        queue1.add(new NodeParent(tmp.right, tmp, level));
+                    } else {
+                        queue2.add(new NodeParent(tmp.right, tmp, level));
+                    }
+                }
+                if (tmp.equals(a)) {
+                    nodeA = tmpPair;
+                }
+                if (tmp.equals(b)) {
+                    nodeB = tmpPair;
+                }
+                if ((nodeA != null && nodeB != null)) {
+                    found = true;
+                    break;
+                }
+            }
+            addQ1 = false;
+        }
+
+        if (nodeA != null && nodeB != null) {
+            return (nodeA.level == nodeB.level && nodeA.parent != nodeB.parent);
+        }
+        return false;
+    }
 
     /**
      * Given a binary tree, find size of largest binary search subtree in this
@@ -192,24 +254,30 @@ public class SundryTreeFunctions {
 
     }
 
-    private class MinMax {
-        private int min;
-        private int max;
-        private boolean isBST;
-        private int size;
 
-        MinMax() {
-            min = Integer.MIN_VALUE;
-            max = Integer.MAX_VALUE;
-            isBST = true;
-            size = 1;
-        }
-
-        @Override
-        public String toString() {
-            return "Min= " + min + " , Max=" + max + " , isBST=" + isBST + ", size =" + size;
-        }
-    }
+    /**
+     * Given a Binary Tree , determine the size of the largest BST it contains. Should return the size ( number of nodes )
+     * in the largest BST in the binary tree.
+     * <p>
+     * <p>
+     * Solution :
+     * <p>
+     * Start from the leaf node and keep going up the tree..
+     * //@formatter:off
+     * 1. Leaf nodes are all BST.
+     * 2. Pass these 4 variables ( isBst, min, max , count )
+     * 3. Check if each node is within the range ... else not an BST.
+     * count --> max of left and right side + 1.
+     * <p>
+     * <p>
+     * <p>
+     * //@formatter:on
+     * <p>
+     * Testing formatting
+     *
+     * @param root
+     * @return
+     */
 
     /**
      * Print the tree in a level order .. from left to right.
@@ -236,7 +304,6 @@ public class SundryTreeFunctions {
             System.out.print(",");
         }
     }
-
 
     /**
      * Root to leaf in a binary tree.
@@ -281,7 +348,6 @@ public class SundryTreeFunctions {
         return false;
     }
 
-
     /**
      * Interesting point is we are not comparing keys to determine MIN and MAX.
      * The sheer property of BST lets us achieve that which is cool.
@@ -315,7 +381,6 @@ public class SundryTreeFunctions {
 
         return prev;
     }
-
 
     /**
      * @param node
@@ -368,7 +433,6 @@ public class SundryTreeFunctions {
         }
 
     }
-
 
     /**
      * Algo same as above
@@ -428,7 +492,6 @@ public class SundryTreeFunctions {
             printInOrderRecursive(node.right);
         }
     }
-
 
     /**
      * Equality check is checking the order of the tree , not only the values,
@@ -517,7 +580,6 @@ public class SundryTreeFunctions {
         return isBST(node.left, minValue, node.data) && isBST(node.right, node.data, maxValue);
     }
 
-
     /**
      * Creates a BST
      *
@@ -578,6 +640,43 @@ public class SundryTreeFunctions {
             }
         }
         return root;
+    }
+
+    class NodeParent {
+        Node<Integer> node = null;
+        Node<Integer> parent = null;
+        int level = 0;
+
+        NodeParent(Node node, Node parent, int level) {
+            this.node = node;
+            this.parent = parent;
+            this.level = level;
+        }
+
+        @Override
+        public String toString() {
+            return "Node :" + node + " , Parent :" + parent + " , level :" + level;
+        }
+    }
+
+    private class MinMax {
+        private int min;
+        private int max;
+        private boolean isBST;
+        private int size;
+
+        MinMax() {
+            min = Integer.MIN_VALUE;
+            max = Integer.MAX_VALUE;
+            isBST = true;
+            size = 1;
+        }
+
+        @Override
+        public String toString() {
+            return "Min= " + min + " , Max=" + max + " , isBST=" + isBST + ", size =" + size;
+        }
+
     }
 
 }

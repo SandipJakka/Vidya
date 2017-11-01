@@ -33,6 +33,7 @@ object VectorTestting extends App {
     }
     1.0 * times.sum / times.length
   }
+
   phoneMappings.map(kv => kv._1 -> kv._2.toLowerCase) // treated as a tuple...
 
   println(phoneMappings get (25))

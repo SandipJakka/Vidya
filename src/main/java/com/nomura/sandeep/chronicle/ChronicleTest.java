@@ -49,50 +49,6 @@ public class ChronicleTest {
         this.reader = chronicle.createTailer().toStart();
     }
 
-
-    public void load() {
-        while (reader.nextIndex()) {
-            String key = reader.readUTF();
-            keyToExcerpt.put(key, reader.index());
-            reader.finish(); //ready for next read
-        }
-    }
-
-    public void putForMap(String key, Map<String, String> map) {
-        appender.startExcerpt(4096);
-        appender.writeUTF(key);
-        appender.writeMap(map);
-        appender.finish();
-    }
-
-    public Map<String, String> getForMap(String key) {
-        long value = keyToExcerpt.get(key);
-        if (value < 0) {
-            return Collections.emptyMap();
-        }
-
-        if (reader.index(value)) {
-            //skip the key
-            //   long by = reader.readStopBit();
-            //  System.out.println("by  + \"key =\"  + key = " + by  + "key ="  + key);
-            // reader.skip(by);
-            reader.readUTF();
-            Map<String, String> out = new HashMap<String, String>();
-            reader.readMap(out, String.class, String.class);
-            //  System.out.println(actual + "===========>" + out);
-            return out;
-        } else {
-            System.out.printf("Gochi");
-            return Collections.emptyMap();
-        }
-    }
-
-    public void close() throws IOException {
-        appender.close();
-        reader.close();
-        chronicle.close();
-    }
-
     public static void main(String[] args) {
         String basePath = TMP + "/ChronicleTest";
         System.out.println("basePath = [" + basePath + "]");
@@ -143,5 +99,48 @@ public class ChronicleTest {
 
         System.out.printf(" Read/Write time for 1 %d , 2 %d ", time, time2);
 
+    }
+
+    public void load() {
+        while (reader.nextIndex()) {
+            String key = reader.readUTF();
+            keyToExcerpt.put(key, reader.index());
+            reader.finish(); //ready for next read
+        }
+    }
+
+    public void putForMap(String key, Map<String, String> map) {
+        appender.startExcerpt(4096);
+        appender.writeUTF(key);
+        appender.writeMap(map);
+        appender.finish();
+    }
+
+    public Map<String, String> getForMap(String key) {
+        long value = keyToExcerpt.get(key);
+        if (value < 0) {
+            return Collections.emptyMap();
+        }
+
+        if (reader.index(value)) {
+            //skip the key
+            //   long by = reader.readStopBit();
+            //  System.out.println("by  + \"key =\"  + key = " + by  + "key ="  + key);
+            // reader.skip(by);
+            reader.readUTF();
+            Map<String, String> out = new HashMap<String, String>();
+            reader.readMap(out, String.class, String.class);
+            //  System.out.println(actual + "===========>" + out);
+            return out;
+        } else {
+            System.out.printf("Gochi");
+            return Collections.emptyMap();
+        }
+    }
+
+    public void close() throws IOException {
+        appender.close();
+        reader.close();
+        chronicle.close();
     }
 }

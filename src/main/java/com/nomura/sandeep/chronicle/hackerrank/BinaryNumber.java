@@ -32,6 +32,6 @@ public class BinaryNumber {
             }
 
         }
-        return result > count? result:count;
+        return result > count ? result : count;
     }
 }

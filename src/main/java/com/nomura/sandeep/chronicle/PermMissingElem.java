@@ -11,7 +11,7 @@ public class PermMissingElem {
     }
 
     public int solution(int[] A) {
-        if (A.length == 0 ) {
+        if (A.length == 0) {
             throw new IllegalArgumentException("");
         }
         //  int expectedSum = BigDecimal.valueOf(A.length+1).multiply(BigDecimal.valueOf(A.length+2)).divide(BigDecimal.valueOf(2)).intValue();

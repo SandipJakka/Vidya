@@ -20,16 +20,16 @@ public class Test3 {
         int len = A.length;
         int prevElem = -1;
         int curr = -1;
-        int inc =1;
+        int inc = 1;
         int dec = 0;
-        int max =0;
-        int startIndex=-1;
-        int endIndex=0;
-        int currDir=-1;
-        int prevDir =-1;
+        int max = 0;
+        int startIndex = -1;
+        int endIndex = 0;
+        int currDir = -1;
+        int prevDir = -1;
         for (int i = 0; i < len; i++) {
-            currDir =  prevElem > A[i]? inc : dec;
-            if (currDir!=prevDir && i < startIndex){
+            currDir = prevElem > A[i] ? inc : dec;
+            if (currDir != prevDir && i < startIndex) {
                 startIndex = i;
             }
 

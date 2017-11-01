@@ -13,17 +13,17 @@ public class GenericTest {
         List<Object> ol = new ArrayList<Object>();
         test.print(dl);
         test.print(il);
-       // test.print2(dl);
+        // test.print2(dl);
         test.print2(il);
         test.print2(ol);
-     ///   test.print(ol);
+        ///   test.print(ol);
     }
 
-    public void  print(List<? extends  Number> list){
+    public void print(List<? extends Number> list) {
         System.out.println("list = [" + list + "]");
     }
 
-    public void  print2(List<? super   Integer> list){
+    public void print2(List<? super Integer> list) {
         System.out.println("list = [" + list + "]");
     }
 

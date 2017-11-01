@@ -9,7 +9,7 @@ public class SpeedCameras {
 
     public static void main(String[] args) {
         int A[] = new int[]{5, 1, 0, 2, 7, 0, 6, 6, 1};
-        int B[] = new int[]{1,0, 7, 4, 2, 6, 8, 3, 9};
+        int B[] = new int[]{1, 0, 7, 4, 2, 6, 8, 3, 9};
 
         SpeedCameras s = new SpeedCameras();
 
@@ -18,7 +18,7 @@ public class SpeedCameras {
 
     public int solution(int[] A, int[] B, int K) {
         int min = 0;
-        InterSection[] nodes = new InterSection[A.length+1];
+        InterSection[] nodes = new InterSection[A.length + 1];
         for (int i = 0; i < A.length; i++) {
             if (nodes[A[i]] == null) {
                 nodes[A[i]] = new InterSection(A[i]);
@@ -41,8 +41,8 @@ public class SpeedCameras {
 
     class InterSection {
         private final int number;
-        String connecting="";
-        int count=0;
+        String connecting = "";
+        int count = 0;
 
 
         InterSection(int number) {

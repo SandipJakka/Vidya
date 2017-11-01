@@ -26,7 +26,7 @@ public class DistinctElement {
             return 1;
         }
         Arrays.parallelSort(A);
-        for (int i = 0; i < A.length-1; i++) {
+        for (int i = 0; i < A.length - 1; i++) {
             if (A[i] != A[i + 1]) {
                 count += 1;
             }

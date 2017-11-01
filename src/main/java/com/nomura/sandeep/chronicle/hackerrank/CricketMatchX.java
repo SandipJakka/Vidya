@@ -12,7 +12,7 @@ public class CricketMatchX {
     public static Set<Node> fielders;
 
     public static void main(String[] args) {
-       // Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         Scanner scanner = null;
         try {
             scanner = new Scanner(new FileInputStream(new File("C:\\Users\\sandeep\\IdeaProjects\\Chronicle\\src\\main\\java\\com\\nomura\\sandeep\\chronicle\\hackerrank\\CricketX")));
@@ -47,15 +47,15 @@ public class CricketMatchX {
         for (Node fielder : fielders) {
             for (Node bat : batsmen) {
                 //|| (bat.to==fielder.to) || (bat.to==fielder.from)  || (bat.from == fielder.to) || (bat.from==fielder.from)
-                if ((bat.from >= fielder.from && bat.from <= fielder.to) || (bat.to >= fielder.from && bat.to <= fielder.to) ){
+                if ((bat.from >= fielder.from && bat.from <= fielder.to) || (bat.to >= fielder.from && bat.to <= fielder.to)) {
                     totalStrenght++;
                 }
             }
-       }
+        }
         return totalStrenght;
     }
 
-    public static class Node implements Comparable{
+    public static class Node implements Comparable {
         final int from;
         final int to;
 
@@ -66,22 +66,23 @@ public class CricketMatchX {
 
         @Override
         public int compareTo(Object o) {
-            if ( o instanceof Node){
-              Node obj = (Node) o;
-                if (this.from < obj.from && this.to < obj.to){
+            if (o instanceof Node) {
+                Node obj = (Node) o;
+                if (this.from < obj.from && this.to < obj.to) {
                     return -1;
-                }else if (this.from == obj.to && this.to == obj.to){
+                } else if (this.from == obj.to && this.to == obj.to) {
                     return 0;
-                }else{
+                } else {
                     return 1;
                 }
 
             }
             return -1;
         }
+
         @Override
         public String toString() {
-            return this.from+","+this.to;
+            return this.from + "," + this.to;
         }
     }
 

@@ -9,8 +9,10 @@ object WhileMir extends App {
   var line = ""
 
   def readLine(): String = linesIter.next()
+
   while ( {
-    line = readLine(); line
+    line = readLine();
+    line
   } != "") {
     println(line)
   }

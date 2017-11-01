@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * Created by sandeep on 7/7/2016.
  */
-public class  BitWiseAndDay29 {
+public class BitWiseAndDay29 {
     public static void main(String[] args) {
         List<Holder> list = new ArrayList<>();
         Scanner sc = new Scanner(System.in);

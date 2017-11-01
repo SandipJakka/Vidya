@@ -31,7 +31,7 @@ public class ValuationFunctionMin {
         System.out.println(vm.seq);
     }
 
-    static void  fill(int k, int n) {
+    static void fill(int k, int n) {
         if (k == n) {
             BitSet s = (BitSet) bs.clone();
             seq.add(s);

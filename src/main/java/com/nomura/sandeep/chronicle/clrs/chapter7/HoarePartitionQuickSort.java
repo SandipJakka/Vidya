@@ -16,7 +16,7 @@ public class HoarePartitionQuickSort {
         int[] A5 = new int[]{1, 2, 3, 4, 5};
 
 
-        q.quickSort(A, 0, A.length );
+        q.quickSort(A, 0, A.length);
 //        q.partition(A1, 0, A1.length);
         for (int i = 0; i < A.length; i++) {
             System.out.print(" " + A[i]);

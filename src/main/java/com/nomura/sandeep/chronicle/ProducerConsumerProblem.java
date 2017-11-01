@@ -4,6 +4,18 @@ package com.nomura.sandeep.chronicle;
 import java.util.Random;
 
 public class ProducerConsumerProblem {
+    public static void main(String[] args) {
+        new ProducerConsumerProblem().fun();
+    }
+
+    public void fun() {
+        IntBuffer buf = new IntBuffer();
+        Prd prd = new Prd(buf);
+        Con con = new Con(buf);
+        prd.start();
+        con.start();
+    }
+
     private static final class IntBuffer {
         private int index = 0;
         private int[] buffer = new int[8];
@@ -34,6 +46,8 @@ public class ProducerConsumerProblem {
             return ret;
         }
     }
+
+    ;
 
     final class Prd extends Thread {
         private final IntBuffer buf;
@@ -70,19 +84,5 @@ public class ProducerConsumerProblem {
                 buf.remove();
             }
         }
-    }
-
-    ;
-
-    public void fun() {
-        IntBuffer buf = new IntBuffer();
-        Prd prd = new Prd(buf);
-        Con con = new Con(buf);
-        prd.start();
-        con.start();
-    }
-
-    public static void main(String[] args) {
-        new ProducerConsumerProblem().fun();
     }
 }

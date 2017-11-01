@@ -13,7 +13,7 @@ public class KwayMerging {
     public static void main(String[] args) {
         int[] A = new int[]{5, 15, 20};
         int[] A1 = new int[]{3, 7, 9};
-        int[] A2 = new int[]{120,4000, 8000 };
+        int[] A2 = new int[]{120, 4000, 8000};
         int[] A3 = new int[]{60, 130, 180};
         List<int[]> list = new ArrayList<>();
         list.add(A);

@@ -22,6 +22,10 @@ public class MorrisTreeTraversal {
         t.printPreOrderRecursive(t.root);
     }
 
+    private static void visit(Node current) {
+        System.out.print(current.data);
+        System.out.print(",");
+    }
 
     public void inOrderTraversalWithoutStack(Node current) {
         Node<Integer> predecessor = null;
@@ -54,11 +58,6 @@ public class MorrisTreeTraversal {
                 }
             }
         }
-    }
-
-    private static void visit(Node current) {
-        System.out.print(current.data);
-        System.out.print(",");
     }
 
     public void printInOrderRecursive(Node node) {

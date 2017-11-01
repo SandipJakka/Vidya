@@ -44,8 +44,8 @@ public class StampedLockTest {
     }
 
     public void taskToDoWithReadLock_Optimistically() throws InterruptedException {
-        synchronized (stampedLock){
-            System.out.println("Locked ...... " );
+        synchronized (stampedLock) {
+            System.out.println("Locked ...... ");
             Thread.sleep(5000);
         }
         System.out.println("Reading ....withoutLock" + mutex);

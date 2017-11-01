@@ -22,34 +22,9 @@ public class ServerCrud {
         this(1024);
     }
 
-    public void insert(String server) {
-        ++counter;
-        servers.put(server, counter);
-        server_list[counter] = server;
-        activeIndices.add(counter);
-    }
-
-    public void delete(String server) {
-        if (servers.containsKey(server)) {
-            int index = servers.get(server);
-            servers.remove(server);
-            server_list[index] = "";
-            activeIndices.remove(index);
-            System.out.println("Deleted : " + server);
-        } else {
-            throw new RuntimeException("Delete failed ...");
-        }
-    }
-
-    public String randomServer() {
-        int index = rand(0, activeIndices.size() - 1);
-        return server_list[index];
-    }
-
     public static int rand(int lower, int higher) {
         return lower + (int) (Math.random() * (higher - lower + 1));
     }
-
 
     public static void main(String[] args) {
         ServerCrud serverCrud = new ServerCrud();
@@ -76,6 +51,30 @@ public class ServerCrud {
         System.out.println(serverCrud.randomServer());
         System.out.println(serverCrud.randomServer());
         System.out.println(serverCrud.randomServer());
+    }
+
+    public void insert(String server) {
+        ++counter;
+        servers.put(server, counter);
+        server_list[counter] = server;
+        activeIndices.add(counter);
+    }
+
+    public void delete(String server) {
+        if (servers.containsKey(server)) {
+            int index = servers.get(server);
+            servers.remove(server);
+            server_list[index] = "";
+            activeIndices.remove(index);
+            System.out.println("Deleted : " + server);
+        } else {
+            throw new RuntimeException("Delete failed ...");
+        }
+    }
+
+    public String randomServer() {
+        int index = rand(0, activeIndices.size() - 1);
+        return server_list[index];
     }
 
 }

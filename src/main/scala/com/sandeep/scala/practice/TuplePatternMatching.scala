@@ -73,4 +73,5 @@ object TuplePatternMatching extends App {
   println(l1(Nil))
 
   case object Nil1 extends List4
+
 }

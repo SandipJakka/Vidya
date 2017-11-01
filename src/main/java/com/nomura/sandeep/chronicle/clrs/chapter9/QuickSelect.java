@@ -10,7 +10,6 @@ public class QuickSelect {
     private static int counter = 0;
 
 
-
     private static int partition(int[] A, final int left, final int right, final int pivotIndex) {
         swap(A, right, pivotIndex);
         return partition(A, left, right);

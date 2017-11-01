@@ -11,7 +11,7 @@ public class DistinctElement {
 
     public static void main(String[] args) {
         DistinctElement ds = new DistinctElement();
-        int A[] = new int[]{2, 1, 1, 2, 3, 1,8,9,0,1,2,99999,999999,-1,-2,-3,-8,-7};
+        int A[] = new int[]{2, 1, 1, 2, 3, 1, 8, 9, 0, 1, 2, 99999, 999999, -1, -2, -3, -8, -7};
         System.out.println("===>" + ds.solution(A));
     }
 

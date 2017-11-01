@@ -14,11 +14,11 @@ object File {
   def newFile: File =
     File.empty("", "")
 
-  def newFile(name: String) =
-    File.empty("", name)
-
   def empty(parentPath: String, name: String) =
     new File(parentPath, name, "")
+
+  def newFile(name: String) =
+    File.empty("", name)
 
   def newFileWithContents(parentPath: String, name: String, contents: String) =
     new File(parentPath, name, contents)

@@ -10,6 +10,7 @@ public class ThreadPoolExecExceptionHandlingCase {
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final ThreadFactory factory;
     private final Runnable workerThread;
+    int counter = 0;
 
     public ThreadPoolExecExceptionHandlingCase() {
         this.factory = r -> {
@@ -23,15 +24,15 @@ public class ThreadPoolExecExceptionHandlingCase {
         };
         workerThread = () -> {
             System.out.println("Doing some work and throwing an exception");
-            if ( counter ==2){
+            if (counter == 2) {
                 try {
-                   for (;;){
+                    for (; ; ) {
 
-                   }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 throw new RuntimeException("Some Runtime exception thrown from the main worker thread;");
             }
         };
@@ -40,21 +41,21 @@ public class ThreadPoolExecExceptionHandlingCase {
     public static void main(String[] args) {
         new ThreadPoolExecExceptionHandlingCase().test();
     }
-    int counter = 0;
-    private void test()  {
-        try {
-            Future<?> fu =  executor.submit(workerThread);
-            fu.get();
-        }catch (InterruptedException exp){
 
-        }catch (ExecutionException ex){
+    private void test() {
+        try {
+            Future<?> fu = executor.submit(workerThread);
+            fu.get();
+        } catch (InterruptedException exp) {
+
+        } catch (ExecutionException ex) {
             counter++;
             System.out.println("In exec throws");
             ex.printStackTrace();
             if (counter < 3) {
                 test();
             }
-        }finally {
+        } finally {
             executor.shutdownNow();
         }
     }

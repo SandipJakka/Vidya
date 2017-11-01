@@ -73,8 +73,8 @@ public class Median2Arrays {
         if ((endA - startA) == 1 && (endB - startB) == 1) {
             return Math.max(Math.max(A[0], B[0]), Math.min(A[1], B[1]));
         } else {
-            int medianAIndex = medianA(A, startA, endA) +  startA;
-            int medianBIndex = medianA(B, startB, endB) + + startB;
+            int medianAIndex = medianA(A, startA, endA) + startA;
+            int medianBIndex = medianA(B, startB, endB) + +startB;
             int medianA = A[medianAIndex];
             int medianB = B[medianBIndex];
             if (medianA == medianB) {

@@ -73,11 +73,11 @@ public class GenomicRangeQuery {
             int from = P[i];
             int to = Q[i];
             int val;
-            if (((from == 0) && (A[from] == 1 || A[to] > 0)) || ((from > 0) && (A[to] > A[from-1]))) {
+            if (((from == 0) && (A[from] == 1 || A[to] > 0)) || ((from > 0) && (A[to] > A[from - 1]))) {
                 val = 1;
-            } else if (((from == 0) && (C[from] == 1 || C[to] > 0)) || ((from > 0) && (C[to] > C[from-1]))) {
+            } else if (((from == 0) && (C[from] == 1 || C[to] > 0)) || ((from > 0) && (C[to] > C[from - 1]))) {
                 val = 2;
-            } else if (((from == 0) && (G[from] == 1 || G[to] > 0)) || ((from > 0) && (G[to] > G[from-1]))) {
+            } else if (((from == 0) && (G[from] == 1 || G[to] > 0)) || ((from > 0) && (G[to] > G[from - 1]))) {
                 val = 3;
             } else {
                 val = 4;
@@ -87,6 +87,7 @@ public class GenomicRangeQuery {
 
         return min;
     }
+
     public int[] solution(String S, int[] P, int[] Q) {
         int[] A = new int[S.length()];
         int[] C = new int[S.length()];

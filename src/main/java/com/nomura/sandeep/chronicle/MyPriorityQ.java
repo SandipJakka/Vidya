@@ -13,23 +13,6 @@ public class MyPriorityQ {
         orderedList = new LinkedList<>();
     }
 
-    public void add(Integer ele) {
-        orderedList.add(ele);
-        index++;
-/*
-        while ( ){
-
-        }
-*/
-    }
-
-/*
-    private boolean hasParentIndex() {
-         ///   return ((int)index/2) ;
-    }
-*/
-
-
     public static void main(String[] args) {
         int k = 0;
         MyPriorityQ q = new MyPriorityQ();
@@ -44,6 +27,22 @@ public class MyPriorityQ {
             k++;
         }
         System.out.println("===>" + q.parent(9) + Math.pow(2.0, 3.0));
+    }
+
+/*
+    private boolean hasParentIndex() {
+         ///   return ((int)index/2) ;
+    }
+*/
+
+    public void add(Integer ele) {
+        orderedList.add(ele);
+        index++;
+/*
+        while ( ){
+
+        }
+*/
     }
 
     private int parent(int cIndex) {

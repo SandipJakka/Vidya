@@ -8,8 +8,8 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class MyConcurrentHashMap {
     public static void main(String[] args) {
-        ConcurrentMap<String,String> map = new ConcurrentHashMap<>();
-        map.put("1","2");
+        ConcurrentMap<String, String> map = new ConcurrentHashMap<>();
+        map.put("1", "2");
         System.out.println("args = [" + args + "]");
     }
 

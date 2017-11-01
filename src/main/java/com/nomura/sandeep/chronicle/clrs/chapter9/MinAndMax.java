@@ -38,7 +38,7 @@ public class MinAndMax {
             if (i < arr.length - 1) {
                 two = arr[i + 1];
             }
-            noOfComparision++ ;
+            noOfComparision++;
             if (two == Integer.MIN_VALUE) {
                 local_min = one;
                 local_max = one;

@@ -2,32 +2,46 @@ package com.nomura.sandeep.chronicle;
 
 public class MyLinkedBlockingDeque<T> {
 
+    private final int max;
+    private Node<T> head;
+    private Node<T> tail;
+    private int currentSize = 0;
+
     public MyLinkedBlockingDeque(int max) {
         this.max = max;
     }
 
-    public static class Node<T> {
-        private Node previous;
-        private final T data;
-        private Node next;
+    public static void main(String[] args) {
+        MyLinkedBlockingDeque<String> q = new MyLinkedBlockingDeque<>(10);
 
-        public Node(Node previous, T data, Node next) {
-            this.previous = previous;
-            this.data = data;
-            this.next = next;
-        }
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    q.addLast("a");
+                    q.addLast("great");
+                    q.addLast("country");
+                    q.addFront("is");
+                    q.addFront("India");
 
-        public T getData() {
-            return data;
-        }
 
+                    q.print();
+
+                    System.out.println("=================================");
+
+                    q.removeAtEnd();
+                    q.removeAtFront();
+
+                    q.print();
+
+                } catch (Exception exp) {
+                    exp.printStackTrace();
+                }
+            }
+        });
+
+        th.start();
     }
-
-    private Node<T> head;
-    private Node<T> tail;
-
-    private final int max;
-    private int currentSize = 0;
 
     public synchronized void addFront(T element) throws InterruptedException {
         while (currentSize == max) {
@@ -122,37 +136,21 @@ public class MyLinkedBlockingDeque<T> {
         }
     }
 
+    public static class Node<T> {
+        private final T data;
+        private Node previous;
+        private Node next;
 
-    public static void main(String[] args) {
-        MyLinkedBlockingDeque<String> q = new MyLinkedBlockingDeque<>(10);
+        public Node(Node previous, T data, Node next) {
+            this.previous = previous;
+            this.data = data;
+            this.next = next;
+        }
 
-        Thread th = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    q.addLast("a");
-                    q.addLast("great");
-                    q.addLast("country");
-                    q.addFront("is");
-                    q.addFront("India");
+        public T getData() {
+            return data;
+        }
 
-
-                    q.print();
-
-                    System.out.println("=================================");
-
-                    q.removeAtEnd();
-                    q.removeAtFront();
-
-                    q.print();
-
-                } catch (Exception exp) {
-                    exp.printStackTrace();
-                }
-            }
-        });
-
-        th.start();
     }
 
 }
