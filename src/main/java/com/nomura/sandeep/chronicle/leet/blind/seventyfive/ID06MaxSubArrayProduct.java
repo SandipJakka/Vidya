@@ -22,7 +22,7 @@ package com.nomura.sandeep.chronicle.leet.blind.seventyfive;
  *
  * This is a type of Kadane's algorithm.
  */
-public class ID05MaxSubArrayProduct {
+public class ID06MaxSubArrayProduct {
     public int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0){
             return 0;
