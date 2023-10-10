@@ -36,7 +36,11 @@ public class BFS {
                 };
 
         List<Coordinate> list1 = bfs.bfs(new Coordinate(2, 0, null), A3);
-        System.out.println(list1.stream().filter(c -> c.parent != null).map(c -> c.parent).distinct().collect(Collectors.toSet()));
+        System.out.println(list1.stream()
+                .filter(c -> c.parent != null)
+                .map(c -> c.parent)
+                .distinct()
+                .collect(Collectors.toSet()));
 
 
         int[][] maze = new int[][]
@@ -263,7 +267,7 @@ public class BFS {
             }
         }
 
-        public void addEdge(int from, int to) {
+        private void addEdge(int from, int to) {
             Preconditions.checkArgument(from < numberOfVertices && to < numberOfVertices);
             adjencyList[from].add(to);
         }

@@ -1,5 +1,8 @@
 package com.nomura.sandeep.chronicle.elements.chapter1;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
 /**
  * Created by sandeep.jakka on 10/31/17.
  */
@@ -10,6 +13,10 @@ public class PalindromeNumber {
         isPalindromeWithoutSwap(127721);
         isPalindromeWithoutSwap(12721);
         isPalindromeWithoutSwap(12);
+
+        assertTrue(isPalindromeBySwap(127721));
+        assertTrue(isPalindromeBySwap(12721));
+        assertFalse(isPalindromeBySwap(12));
     }
 
     /**

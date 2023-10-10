@@ -1,0 +1,11 @@
+This is is some text text with
+double double words some where I I I am
+not sure why why I am typing ok ?
+rainbow rainbow unicorn unicorn
+
+\1 is used to refer previously matched group of the regex
+$1 is used in case of replace kind of activity
+
+\b(\w+)\b\s(\1) ==> identifies the duplicate words in the above sentence...
+[word boundary any word (1 or more ) word boundary one space previously captured word
+$1 ==> replacing with $1 will remove all the duplicates.

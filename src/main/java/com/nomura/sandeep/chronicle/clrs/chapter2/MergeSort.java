@@ -55,7 +55,7 @@ public class MergeSort {
         for (int i = 0, x = m + 1; i < R.length; i++, x++) {
             R[i] = A[x];
         }
-      /*  int i = 0, j = 0, k = s;
+        int i = 0, j = 0, k = s;
         for (; k < e; k++) {
             if (L[i] <= R[j]) {
                 A[k] = L[i];
@@ -76,9 +76,9 @@ public class MergeSort {
             A[k] = R[j];
             j++;
             k++;
-        }*/
+        }
 
-        for (int i = 0, j = 0, k = s; k <= e; k++) {
+        /*for (int i = 0, j = 0, k = s; k <= e; k++) {
             if (i == n1) {
                 A[k] = R[j++];
             } else if (j == n2) {
@@ -88,7 +88,7 @@ public class MergeSort {
             } else {
                 A[k] = R[j++];
             }
-        }
+        }*/
 
 
     }

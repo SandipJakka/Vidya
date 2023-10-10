@@ -45,16 +45,17 @@ public class FindCelebrity {
     }
 
     public int findCelebrity(boolean[][] A) {
-        int i = 0, j = 1;
+        int row = 0, col = 1;
         int cel = 0;
-        while (j < A.length) {
-            System.out.println("i=" + i + " , j = " + j);
-            if (A[i][j]) {
-                cel = j;
-                i++;
-                j++;
+        while (col < A.length) {
+            System.out.println("row=" + row + " , col = " + col);
+            if (A[row][col]) {
+                System.out.println("True");
+                cel = col;
+                row++;
+                col++;
             } else {
-                j++;
+                col++;
             }
         }
         return cel;

@@ -35,7 +35,6 @@ public class DjikstrasApplication {
         graph.withWeightAndEdgeDistance(9, 11, 7, 1);
         graph.withWeightAndEdgeDistance(9, 5, 1, 1);
         graph.withWeightAndEdgeDistance(5, 6, 6, 1);
-        graph.withWeightAndEdgeDistance(5, 7, 5, 1);
         graph.withWeightAndEdgeDistance(6, 5, 7, 1);
         graph.withWeightAndEdgeDistance(6, 7, 4, 1);
         graph.withWeightAndEdgeDistance(11, 8, 9, 1);
@@ -47,6 +46,13 @@ public class DjikstrasApplication {
         application.findShortestPathWithMinNumberOfVertices(graph, 0, 7);
     }
 
+    /**
+     * Finds the shortest path with the minimum number of vertices in the path .
+     *
+     * @param graph
+     * @param startNode
+     * @param endNode
+     */
     public void findShortestPathWithMinNumberOfVertices(Graph graph, int startNode, int endNode) {
         //contains the child ( node ) <- parent ( node that fetched the node )
         Map<Integer, Integer> childParentMap = new HashMap<>();
@@ -57,7 +63,7 @@ public class DjikstrasApplication {
 
         //initialize the priorityQ with all the distances marked from starting node as infinity;
         for (int i = 0; i < graph.numberOfVertices; i++) {
-            (mapWithPriorityQueue).insertOrUpdate(i, new Node(i, POSITIVE_INFINITY, MIN_VALUE));
+            mapWithPriorityQueue.insertOrUpdate(i, new Node(i, POSITIVE_INFINITY, MIN_VALUE));
         }
 
         // set the value of the startNode to be 0
@@ -68,29 +74,32 @@ public class DjikstrasApplication {
 
         while (!mapWithPriorityQueue.isEmpty()) {
             Node currentMinNode = mapWithPriorityQueue.getMinimum();
-            System.out.printf("Minimum : %s \n", currentMinNode);
-            mapWithPriorityQueue.print();
+            // System.out.printf("Minimum : %s \n", currentMinNode);
+            // mapWithPriorityQueue.print();
             int fromId = currentMinNode.id;
 
+            //
             vertexToMaxDistances.put(fromId, currentMinNode);
 
             for (Graph.Edge edge : adjacencyList[fromId]) {
                 int toId = edge.to;
                 if (mapWithPriorityQueue.isPresent(toId)) {
                     Node node = mapWithPriorityQueue.get(toId);
-                    childParentMap.put(node.id, fromId); // since startNode has no parent
+
                     // relaxation step
                     if ((edge.weight + vertexToMaxDistances.get(fromId).totalWeight < node.totalWeight) ||
                             ((edge.weight + vertexToMaxDistances.get(fromId).totalWeight) == node.totalWeight)
-                                    && (edge.edgeDistance + vertexToMaxDistances.get(fromId).edgeDistance) < node.edgeDistance) {
+                                    && (1 + vertexToMaxDistances.get(fromId).edgeDistance) < node.edgeDistance) {
                         node.totalWeight = edge.weight + vertexToMaxDistances.get(fromId).totalWeight;
-                        node.edgeDistance = edge.edgeDistance + vertexToMaxDistances.get(fromId).edgeDistance;
+                        node.edgeDistance = 1 + vertexToMaxDistances.get(fromId).edgeDistance;
                         mapWithPriorityQueue.insertOrUpdate(node.id, node);
+
+                        //add or update
+                        childParentMap.put(node.id, fromId);
                     }
                 }
             }
-
-            mapWithPriorityQueue.print();
+            // mapWithPriorityQueue.print();
         }
 
         int current = endNode;
@@ -148,3 +157,4 @@ public class DjikstrasApplication {
     }
 
 }
+

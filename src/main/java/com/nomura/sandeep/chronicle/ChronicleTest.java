@@ -123,9 +123,9 @@ public class ChronicleTest {
         }
 
         if (reader.index(value)) {
-            //skip the key
+            //skip the val
             //   long by = reader.readStopBit();
-            //  System.out.println("by  + \"key =\"  + key = " + by  + "key ="  + key);
+            //  System.out.println("by  + \"val =\"  + val = " + by  + "val ="  + val);
             // reader.skip(by);
             reader.readUTF();
             Map<String, String> out = new HashMap<String, String>();

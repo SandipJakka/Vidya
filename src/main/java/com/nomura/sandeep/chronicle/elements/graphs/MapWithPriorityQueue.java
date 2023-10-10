@@ -14,14 +14,17 @@ public class MapWithPriorityQueue<K, V extends DjikstrasApplication.Node> {
         priorityQueue = new PriorityQueue<>(comparator);
     }
 
+    // O(1)
     public boolean isPresent(K key) {
         return map.containsKey(key);
     }
 
+    // O(1)
     public V get(K key) {
         return map.get(key);
     }
 
+    // O(n log n )
     public void insertOrUpdate(K key, V value) {
         if (map.containsKey(key)) {
             //update
@@ -34,6 +37,7 @@ public class MapWithPriorityQueue<K, V extends DjikstrasApplication.Node> {
         }
     }
 
+    // O(1)
     public V getMinimum() {
         V ele = priorityQueue.poll();
         map.remove(ele.id);
